@@ -97,6 +97,10 @@ function blob_fixup() {
             [ "$2" = "" ] && return 0
             sed -i '/persist.vendor.radio.redir_party_num/ s/true/false/g' "${2}"
             ;;
+        vendor/etc/seccomp_policy/atfwd@2.0.policy)
+            [ "$2" = "" ] && return 0
+            grep -q "gettid: 1" "${2}" || echo "gettid: 1" >> "${2}"
+            ;;
         vendor/etc/vintf/manifest/c2_manifest_vendor.xml)
             [ "$2" = "" ] && return 0
             sed -i '/dolby/d' "${2}"
